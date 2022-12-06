@@ -6,7 +6,7 @@ module Api
       class Base < Api::V1::Base
         resource :users do
           mount Api::V1::Users::SignIn
-          # mount Api::V1::Users::SignOut
+          mount Api::V1::Users::SignOut
           # mount Api::V1::Users::RefreshToken
         end
       end
