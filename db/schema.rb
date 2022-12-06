@@ -15,16 +15,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_113953) do
   enable_extension "plpgsql"
 
   create_table "articles", force: :cascade do |t|
-    t.string "article_type"
+    t.integer "article_type", default: 0, null: false
     t.string "bg_image_url"
     t.string "label"
     t.string "description"
     t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "elos", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

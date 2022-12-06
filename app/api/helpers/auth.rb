@@ -14,11 +14,21 @@ module Helpers
     def current_user
       return @current_user if defined?(@current_user)
 
-      @current_user ||= skip_authentication? ? user_from_params : warden.authenticate(:jwt, scope: :user, run_callbacks: false)
+      @current_user ||= request_user || Guest.new
+    end
+
+    def request_user
+      return user_from_token if user_from_token.present?
+
+      skip_authentication? ? user_from_params : user_from_token
     end
 
     def user_from_params
       @user_from_params ||= User.find_by(email: params[:email])
+    end
+
+    def user_from_token
+      warden.authenticate(:jwt, scope: :user, run_callbacks: false)
     end
 
     def user_from_refresh_token

@@ -21,6 +21,7 @@ module Api
       helpers ::Grape::DSL::InsideRoute::PostBeforeFilter
 
       mount Api::V1::Users::Base
+      mount Api::V1::Blog::Base
     end
   end
 end

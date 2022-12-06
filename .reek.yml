@@ -32,3 +32,6 @@ directories:
   'app/domains/api_management/helpers/**':
     UtilityFunction:
       enabled: false
+  'app/api_support/**/**':
+    UtilityFunction:
+      enabled: false
