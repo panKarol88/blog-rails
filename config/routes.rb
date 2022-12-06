@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
-  resources :articles
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  mount Api::Root => '/'
+
+  GrapeSwaggerRails::Engine.middleware.use Rack::Auth::Basic do |username, password|
+    username == ENV.fetch('SWAGGER_USERNAME') && password == ENV.fetch('SWAGGER_PASSWORD')
+  end unless Rails.env.production?
+
+  mount GrapeSwaggerRails::Engine => '/swagger' unless Rails.env.production?
+  devise_for :users, api_only?: true
 end
+
