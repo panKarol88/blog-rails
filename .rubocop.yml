@@ -1,0 +1,50 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable  
+  
+  Exclude:
+    - "db/schema.rb"
+    - "db/data_schema.rb"
+    - "config/**/*"
+    - "config.ru"
+    - "bin/**/*"
+    - "db/migrate/*"
+    - "db/seeds.rb"
+    - "**/*.txt"
+    - "**/.keep"
+    - "spec/rails_helper.rb"
+    - "spec/support/shared_examples/*"
+    - "vendor/**/*.rb"
+    - "vendor/bundle/**/*"
+    - "Rakefile"
+
+  TargetRubyVersion: 3.1.2
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/BlockLength:
+  Max: 35
+
+RSpec/NestedGroups:
+  Max: 8
+
+Layout/LineLength:
+  Max: 140
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 20
+
+Style/RescueModifier:
+  Exclude:
+    - 'spec/**/*'

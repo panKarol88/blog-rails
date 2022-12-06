@@ -1,0 +1,31 @@
+exclude_paths:
+  - config/**/*
+  - db/*/*
+  - spec/utility/*
+
+detectors:
+  IrresponsibleModule:
+    enabled: false
+  NilCheck:
+    enabled: false
+  InstanceVariableAssumption:
+    enabled: false
+  UncommunicativeModuleName:
+    enabled: false
+  LongParameterList:
+    max_params: 5
+  TooManyStatements:
+    max_statements: 10
+  MissingSafeMethod:
+    enabled: false
+directories:
+  'app/api/helpers/**':
+    FeatureEnvy:
+      enabled: false
+    UtilityFunction:
+      enabled: false
+  'app/helpers/**':
+    FeatureEnvy:
+      enabled: false
+    UtilityFunction:
+      enabled: false
