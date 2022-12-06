@@ -23,3 +23,6 @@
 /config/master.key
 
 .idea/
+
+# Ignore local env file
+config/local_env.yml

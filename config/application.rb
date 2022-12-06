@@ -20,16 +20,21 @@ Bundler.require(*Rails.groups)
 module BlogRails
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
-
-    # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers and assets when generating a new resource.
+    # raise Zeitwerk::NameError on heroku-22 - comment it out
+    # config.load_defaults 6.1
+    config.autoload = :classic
     config.api_only = true
+
+    config.before_configuration do
+      env_file = Rails.root.join('config', 'local_env.yml').to_s
+
+      if File.exists?(env_file)
+        YAML.safe_load(File.open(env_file)).each do |key, value|
+          ENV[key.to_s] = value.to_s
+        end
+      end
+    end unless Rails.env.test?
+
+    Rails.configuration.active_storage.draw_routes = false
   end
 end
