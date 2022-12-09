@@ -14,17 +14,13 @@ module Helpers
     def current_user
       return @current_user if defined?(@current_user)
 
-      @current_user ||= request_user || Guest.new
+      @current_user ||= determine_current_user
     end
 
-    def request_user
-      return user_from_token if user_from_token.present?
+    def determine_current_user
+      return user_from_token if authentication_required?
 
-      skip_authentication? ? user_from_params : user_from_token
-    end
-
-    def user_from_params
-      @user_from_params ||= User.find_by(email: params[:email])
+      user_from_token || Guest.new
     end
 
     def user_from_token
@@ -39,7 +35,9 @@ module Helpers
       payload = {
         sub:,
         scp: 'user',
-        refresh_token_jti: Warden::JWTAuth::TokenDecoder.new.call(linked_refresh_token)['jti']
+        refresh_token_jti: Warden::JWTAuth::TokenDecoder.new.call(linked_refresh_token)['jti'],
+        email: current_user.email,
+        nickname: current_user.nickname
       }.with_indifferent_access
 
       Warden::JWTAuth::TokenEncoder.new.call(payload)
@@ -76,6 +74,10 @@ module Helpers
 
     def skip_authentication?
       route.settings&.dig(:auth, :disabled)
+    end
+
+    def authentication_required?
+      !skip_authentication?
     end
   end
 end

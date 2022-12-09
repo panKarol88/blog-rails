@@ -21,8 +21,16 @@ module Api
             requires :password, type: String, desc: 'Password'
           end
 
+          helpers do
+            def user_from_params
+              @user_from_params ||= User.find_by(email: params[:email])
+            end
+          end
+
           post do
             raise_api_error!('Email or password is invalid', :not_found) unless user_from_params&.valid_password?(params[:password])
+
+            @current_user = user_from_params
 
             header 'Authorization', "Bearer #{access_token}"
 
