@@ -12,26 +12,26 @@ module Api
                  message: 'Articles []'
                },
                failure: [
+                 { code: 400, message: 'Bad request' },
                  { code: 401, message: 'Unauthorized' }
                ]
 
           helpers ::Helpers::PaginationParams
 
-          helpers do
-            def assessments_scope
-              return Article.for_types('public') unless current_user.admin?
+          params do
+            use :pagination
+            optional :worth_reading, type: Boolean, desc: 'Should return only worth reading articles?'
+            optional :published, type: Boolean, desc: 'Should return only published articles?'
+          end
 
-              Article.for_types(declared(params, include_missing: false)[:article_type])
+          helpers do
+            def articles_scope
+              "ArticlesManagement::Index::#{current_user.type}Service".constantize.new(**declared(params, include_missing: false)).articles
             end
 
             def searching_result
-              @searching_result ||= ::Searching::HandlingChain.new(params).process(assessments_scope)
+              @searching_result ||= ::Searching::HandlingChain.new(params).process(articles_scope)
             end
-          end
-
-          params do
-            use :pagination
-            optional :article_type, type: String, desc: 'Article type', default: 'public'
           end
 
           get do

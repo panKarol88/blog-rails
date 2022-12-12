@@ -7,7 +7,7 @@ module Api
         class IndexSerializer < Blueprinter::Base
           identifier :id
 
-          fields :bg_image_url, :label, :description
+          fields :bg_image_url, :label, :description, :created_at
         end
       end
     end
