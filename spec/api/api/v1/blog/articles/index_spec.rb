@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 describe Api::V1::Blog::Articles::Index, type: :request do
   describe 'GET /api/v1/blog/articles' do
     subject(:call) { get '/api/v1/blog/articles', headers:, params: }
