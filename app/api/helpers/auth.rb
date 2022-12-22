@@ -37,7 +37,8 @@ module Helpers
         scp: 'user',
         refresh_token_jti: Warden::JWTAuth::TokenDecoder.new.call(linked_refresh_token)['jti'],
         email: current_user.email,
-        nickname: current_user.nickname
+        nickname: current_user.nickname,
+        role: current_user.type.downcase
       }.with_indifferent_access
 
       Warden::JWTAuth::TokenEncoder.new.call(payload)

@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_113953) do
     t.text "content"
     t.boolean "published", default: false
     t.boolean "worth_reading", default: false
+    t.integer "box_size", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
