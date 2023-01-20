@@ -8,6 +8,7 @@ module Api
           resource :articles do
             mount Api::V1::Blog::Articles::Index
             mount Api::V1::Blog::Articles::Show
+            mount Api::V1::Blog::Articles::Update
           end
         end
       end
