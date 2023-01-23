@@ -9,6 +9,8 @@ module Api
             mount Api::V1::Blog::Articles::Index
             mount Api::V1::Blog::Articles::Show
             mount Api::V1::Blog::Articles::Update
+            mount Api::V1::Blog::Articles::Delete
+            mount Api::V1::Blog::Articles::Create
           end
         end
       end
