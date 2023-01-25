@@ -11,6 +11,10 @@ module Helpers
       raise unauthorized_error! unless current_user
     end
 
+    def authenticate_admin!
+      raise forbidden_error! unless current_user.admin?
+    end
+
     def current_user
       return @current_user if defined?(@current_user)
 
@@ -69,7 +73,6 @@ module Helpers
     end
 
     def forbidden_error!
-      increment_failed_attempts
       raise_api_error!('Forbidden', :forbidden)
     end
 

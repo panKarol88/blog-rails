@@ -8,9 +8,16 @@ module Api
           resource :articles do
             mount Api::V1::Blog::Articles::Index
             mount Api::V1::Blog::Articles::Show
-            mount Api::V1::Blog::Articles::Update
-            mount Api::V1::Blog::Articles::Delete
-            mount Api::V1::Blog::Articles::Create
+
+            resource do
+              before do
+                authenticate_admin!
+              end
+
+              mount Api::V1::Blog::Articles::Update
+              mount Api::V1::Blog::Articles::Delete
+              mount Api::V1::Blog::Articles::Create
+            end
           end
         end
       end

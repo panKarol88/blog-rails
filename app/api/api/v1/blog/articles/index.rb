@@ -5,6 +5,7 @@ module Api
     module Blog
       module Articles
         class Index < Base
+          route_setting :auth, disabled: true
           desc 'List articles',
                headers: ::SwaggerHelpers::Requests::STANDARD_HEADERS,
                success: {

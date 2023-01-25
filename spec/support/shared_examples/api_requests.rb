@@ -75,8 +75,6 @@ shared_examples 'secured endpoint' do |method:, url:, allowed_types: User.types|
             call
             expect(response).to have_http_status(:forbidden)
           end
-
-          it { expect { call }.to change { user.reload.failed_attempts }.by(1) }
         end
       end
     end

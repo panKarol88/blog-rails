@@ -5,6 +5,7 @@ module Api
     module Blog
       module Articles
         class Show < Base
+          route_setting :auth, disabled: true
           route_param :id, type: String do
             desc 'Show article',
                  headers: ::SwaggerHelpers::Requests::STANDARD_HEADERS,
